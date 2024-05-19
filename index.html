@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Lyrics</title>
+    <script src="vara.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.gooleapis.com/css?family=Briem+Hand:wght@100..900&display=swap">
+    <style>
+
+        body {
+            background-image: url('bg.jpg');
+
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: 'Briem Hand', cursive;
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        .lyric-container {
+            position: relative;
+            width: 100%;
+            height: 150px;
+        }
+
+        .lyric {
+            position: absolute;
+            font-size: 20px;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            width: 100%;
+            text-align: center;
+        }
+
+        .lyric.show {
+            opacity: 1;
+        }
+
+        .sound {
+            top: 50px;
+            left: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            transform: translateX(-100%);
+        }
+       
+
+        #image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .image {
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            /* Adjust styles for smaller screens */
+            .image {
+                width: 80px;
+                height: 130px;
+            }
+
+            #image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            padding: 0;
+            }
+
+            .image {
+            margin: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 130px;
+            height: 150px;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+            }
+        }
+
+        #showMessageButton {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #showMessageButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container">
+        <img class="image" id="image1" src="1.jpg" alt="Image 1">
+        <img class="image" id="image2" src="6.jpg" alt="Image 2">
+        <img class="image" id="image3" src="3.jpg" alt="Image 3">
+        <img class="image" id="image4" src="5.jpg" alt="Image 4">
+    </div>
+
+    <div id="lyrics" class="lyric-container">
+        <p class="lyric" id="lyric1">Wahai Cinta Beri Pertanda</p>
+        <p class="lyric" id="lyric2">Dengar Kupu-kupu yang Bicara</p>
+        <p class="lyric" id="lyric3">Bisingkan Dada</p>
+        <p class="lyric" id="lyric4">Melantunkan Nada Asmara</p>
+        <p class="lyric" id="lyric5">Andai Cinta Setangkai Bunga</p>
+        <p class="lyric" id="lyric6">Takkan buat Kau Layu dan Kecewa</p>
+        <p class="lyric" id="lyric7">Kan Ku Jaga Binar Hatinya</p>
+    </div>
+
+    <audio id="audio" class="sound" controls autoplay>
+        <source src="kupu.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="showMessageButton">Click Me Babe!</button>
+    
+    <script>
+
+        const lyrics = document.querySelectorAll('.lyric');
+        const timings = [7, 10, 14, 17, 22, 26, 31];
+
+        
+        function showLyric(index) {
+            lyrics.forEach((lyric, i) => {
+                if (i === index) {
+                    lyric.style.opacity = '1';
+                } else {
+                    lyric.style.opacity = '0';
+                }
+            });
+        }
+
+        function alternateLyric() {
+            let currentIndex = 0;
+            let intervalValid;
+            
+            function displayNextLyric() {
+                showLyric(currentIndex);
+
+                currentIndex++;
+                if (currentIndex === lyrics.length) {
+                    clearInterval(intervalValid);
+                }
+            }
+
+            timings.forEach((time, index) => {
+                setTimeout(() => {
+                    displayNextLyric();
+                }, time * 1000);
+            });
+        }
+
+        document.getElementById('showMessageButton').addEventListener('click', function() {
+            alert('Hai sayang! Hihi. Bingung ah mau di isi apa, intinya arya sayang fara, cinta fara! Semua nya buat Faradila Natali')
+        });
+
+        alternateLyric();
+
+    </script>
+
+</body>
+</html>
